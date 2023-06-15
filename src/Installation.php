@@ -28,15 +28,19 @@ class Installation implements InstallationInterface
         if (empty($dbClients)) {
             $clients = Config::get('clients');
             foreach ($clients as $key => $value) {
+                $scopes = $value['scopes'] ?? '';
+                $scopes = is_array($scopes) ? implode(' ', $scopes) : $scopes;
+
+                $currencies = $value['currency'] ?? [];
+                foreach ($currencies as $currency) {
+                    $scopes .= ' currency:' . $currency;
+                }
                 $data = [
                     'id' => $key,
                     'title' => $key,
-                    'enabled' => true,
-                    'client_code' => $key,
                     'uri' => $value['uri'] ?? '',
                     'secret' => $value['secret'] ?? '',
-//                    'currency' => isset($value['currency']) ? implode(',', $value['currency']) : '',
-                    'scopes' => isset($value['scopes']) ? implode(',', $value['scopes']) : '',
+                    'scopes' => $scopes
                 ];
                 SQL\ClientGateway::instance()->put($data);
             }

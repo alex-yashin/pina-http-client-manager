@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PinaHttpClientManager\Commands;
 
 use PinaHttpClientManager\SQL\ClientGateway;

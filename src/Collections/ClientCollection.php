@@ -1,6 +1,5 @@
 <?php
 
-
 namespace PinaHttpClientManager\Collections;
 
 use Pina\Data\DataCollection;

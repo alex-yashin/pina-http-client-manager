@@ -1,8 +1,6 @@
 <?php
 
-
 namespace PinaHttpClientManager\Collections;
-
 
 use PinaHttpClientManager\SQL\WebhookGateway;
 use Pina\Data\DataCollection;

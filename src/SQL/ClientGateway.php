@@ -7,6 +7,10 @@ use Pina\TableDataGateway;
 use Pina\Types\BooleanType;
 use Pina\Types\StringType;
 use Pina\Types\TokenType;
+use PinaHttpClientManager\Model\ClientConfiguration;
+
+use PinaHttpClientManager\Model\InvalidClientConfiguration;
+
 use function Pina\__;
 
 class ClientGateway extends TableDataGateway
@@ -32,5 +36,19 @@ class ClientGateway extends TableDataGateway
         $schema->setPrimaryKey('id');
 
         return $schema;
+    }
+
+    public function firstClientConfiguration(): ClientConfiguration
+    {
+        $line = $this->select('uri')
+            ->select('secret')
+            ->select('scopes')
+            ->first();
+
+        if (empty($line)) {
+            return new InvalidClientConfiguration();
+        }
+
+        return new ClientConfiguration($line['uri'], $line['secret'], $line['scopes']);
     }
 }

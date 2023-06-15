@@ -1,8 +1,6 @@
 <?php
 
-
 namespace PinaHttpClientManager\Endpoints;
-
 
 use PinaHttpClientManager\Collections\WebhookCollection;
 use Pina\App;

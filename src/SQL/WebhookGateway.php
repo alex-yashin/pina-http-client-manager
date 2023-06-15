@@ -1,15 +1,13 @@
 <?php
 
-
 namespace PinaHttpClientManager\SQL;
 
-
-use PinaHttpClientManager\Types\WebhookTypeType;
 use Pina\Data\Schema;
 use Pina\TableDataGateway;
 use Pina\Types\BooleanType;
 use Pina\Types\StringType;
 use Pina\Types\TokenType;
+use PinaHttpClientManager\Types\WebhookTypeType;
 
 use function Pina\__;
 

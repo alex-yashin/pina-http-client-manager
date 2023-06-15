@@ -19,7 +19,7 @@ class Module implements ModuleInterface
 
     public function getTitle()
     {
-        return 'Clients';
+        return 'HTTP Client Manager';
     }
 
     public function http()
