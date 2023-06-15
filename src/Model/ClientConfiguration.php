@@ -17,6 +17,13 @@ class ClientConfiguration
         $this->scopes = array_filter(preg_split("/[\s,]+/", $scopes));
     }
 
+    public function getTitle(): string
+    {
+        $domain = parse_url($this->uri, PHP_URL_HOST);
+        $port = parse_url($this->uri, PHP_URL_PORT);
+        return $domain . (isset($port) ? ':' . $port : '');
+    }
+
     public function getScopeValues($name)
     {
         $values = [];
@@ -44,5 +51,23 @@ class ClientConfiguration
         }
 
         return true;
+    }
+
+    public function isValidUrl(string $url)
+    {
+        if (empty($url) && !empty($this->uri)) {
+            return false;
+        }
+
+        if (stripos($url, $this->uri) !== 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function isValidBasicToken($clientId, $token)
+    {
+        return $token == base64_encode($clientId . ":" . $this->secret);
     }
 }

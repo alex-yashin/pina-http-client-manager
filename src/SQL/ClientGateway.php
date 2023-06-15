@@ -29,8 +29,8 @@ class ClientGateway extends TableDataGateway
         $schema->add('title', __('Название'), StringType::class)->setMandatory()->setDefault('');
         $schema->add('enabled', __('Активен'), BooleanType::class)->setDefault('Y');
         $schema->add('uri', __('Uri'), StringType::class)->setMandatory()->setDefault('');
-        $schema->add('secret', __('Secret'), TokenType::class)->setMandatory()->setDefault('');
-        $schema->add('scopes', __('Scopes'), TokenType::class)->setDefault('');
+        $schema->add('secret', __('Secret'), StringType::class)->setMandatory()->setDefault('');
+        $schema->add('scopes', __('Scopes'), StringType::class)->setDefault('');
         $schema->addTimestamps();
 
         $schema->setPrimaryKey('id');

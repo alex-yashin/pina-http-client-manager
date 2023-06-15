@@ -20,4 +20,15 @@ class Clients
             ->firstClientConfiguration();
     }
 
+    /**
+     * @param string $clientId
+     * @return bool
+     */
+    public static function exists(string $clientId): bool
+    {
+        return SQL\ClientGateway::instance()
+            ->whereBy('id', $clientId)
+            ->exists();
+    }
+
 }
