@@ -1,0 +1,29 @@
+{
+  "name": "alex-yashin/pina-http-client-manager",
+  "keywords": ["php"],
+  "license": "MIT",
+  "homepage": "https://github.com/alex-yashin/pina-http-client-manager/",
+  "support": {
+    "issues": "https://github.com/alex-yashin/pina-http-client-manager/issues",
+    "source": "https://github.com/alex-yashin/pina-http-client-manager/"
+  },
+  "authors": [
+    {
+      "name": "Alex Yashin",
+      "email": "alex-yashin@ya.ru"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "pinahq/framework": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "6.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "PinaHttpClientManager\\": "src/"
+    }
+  },
+  "minimum-stability": "dev"
+}
