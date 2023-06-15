@@ -16,5 +16,10 @@ class ScopeTest extends TestCase
         $this->assertFalse($config->isValid('234', ['orders']));
         $this->assertFalse($config->isValid('', ['orders']));
         $this->assertFalse($config->isValid('', []));
+
+        $this->assertTrue($config->hasScope('orders'));
+        $this->assertTrue($config->isValidUrl('http://localhost/callback'));
+        $this->assertFalse($config->isValidUrl('http://localhost:8080/callback'));
+        $this->assertFalse($config->isValidUrl('http://yandex.ru/callback'));
     }
 }

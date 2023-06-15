@@ -24,6 +24,11 @@ class ClientConfiguration
         return $domain . (isset($port) ? ':' . $port : '');
     }
 
+    public function hasScope(string $scope): bool
+    {
+        return in_array($scope, $this->scopes);
+    }
+
     public function getScopeValues($name)
     {
         $values = [];
