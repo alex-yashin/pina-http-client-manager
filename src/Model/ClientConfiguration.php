@@ -17,6 +17,11 @@ class ClientConfiguration
         $this->scopes = array_filter(preg_split("/[\s,]+/", $scopes));
     }
 
+    public function isConfigured(): bool
+    {
+        return !empty($this->uri) && !empty($this->secret);
+    }
+
     public function getTitle(): string
     {
         $domain = parse_url($this->uri, PHP_URL_HOST);
