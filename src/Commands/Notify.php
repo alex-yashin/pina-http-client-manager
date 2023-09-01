@@ -32,7 +32,6 @@ class Notify extends Command
             ->innerJoin(
                 ClientGateway::instance()->on('id', 'client_id')
                     ->onBy('enabled', 'Y')
-                    ->select('secret')
             )
             ->select('url')
             ->first();
@@ -43,7 +42,6 @@ class Notify extends Command
 
         $this->send(
             $client['url'] ?? '',
-            $client['secret'] ?? '',
             json_encode($packet['message'] ?? '', JSON_UNESCAPED_UNICODE)
         );
     }
@@ -54,7 +52,7 @@ class Notify extends Command
      * @param string $data
      * @throws Exception
      */
-    protected function send(string $url, string $secret, string $data)
+    protected function send(string $url, string $data)
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -63,7 +61,6 @@ class Notify extends Command
             $ch,
             CURLOPT_HTTPHEADER,
             [
-                'Authorization: Bearer ' . $secret,
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($data)
             ]
