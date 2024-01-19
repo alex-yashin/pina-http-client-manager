@@ -48,7 +48,6 @@ class Notify extends Command
 
     /**
      * @param string $url
-     * @param string $secret
      * @param string $data
      * @throws Exception
      */

@@ -8,7 +8,7 @@ use PinaHttpClientManager\SQL\ClientGateway;
 
 class ClientCollection extends DataCollection
 {
-    public function getFilterSchema(): Schema
+    public function getFilterSchema($context = []): Schema
     {
         return $this->getSchema()
             ->fieldset(['title', 'code', 'enabled', 'uri', 'secret', 'scopes', 'currency'])

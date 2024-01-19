@@ -2,6 +2,7 @@
 
 namespace PinaHttpClientManager\SQL;
 
+use Exception;
 use Pina\Data\Schema;
 use Pina\TableDataGateway;
 use Pina\Types\BooleanType;
@@ -17,7 +18,7 @@ class WebhookGateway extends TableDataGateway
 
     /**
      * @return Schema
-     * @throws \Exception
+     * @throws Exception
      */
     public function getSchema()
     {

@@ -11,7 +11,7 @@ class Clients
 {
     /**
      * @param string $clientId
-     * @return array
+     * @return ClientConfiguration
      */
     public static function get(string $clientId): ClientConfiguration
     {
