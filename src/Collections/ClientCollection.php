@@ -8,14 +8,6 @@ use PinaHttpClientManager\SQL\ClientGateway;
 
 class ClientCollection extends DataCollection
 {
-    public function getFilterSchema($context = []): Schema
-    {
-        return $this->getSchema()
-            ->fieldset(['title', 'code', 'enabled', 'uri', 'secret', 'scopes', 'currency'])
-            ->setMandatory(false)
-            ->setNullable()
-            ->makeSchema();
-    }
 
     public function makeQuery(): ClientGateway
     {
