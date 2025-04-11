@@ -5,7 +5,7 @@ namespace PinaHttpClientManager\SQL;
 use Exception;
 use Pina\Data\Schema;
 use Pina\TableDataGateway;
-use Pina\Types\BooleanType;
+use Pina\Types\CheckedEnabledType;
 use Pina\Types\StringType;
 use Pina\Types\TokenType;
 use PinaHttpClientManager\Model\ClientConfiguration;
@@ -24,11 +24,12 @@ class ClientGateway extends TableDataGateway
      */
     public function getSchema()
     {
-        $schema = new Schema();
+        $schema = parent::getSchema();
 
         $schema->add('id', __('ID Клиента'), TokenType::class)->setMandatory()->setDefault('');
         $schema->add('title', __('Название'), StringType::class)->setMandatory()->setDefault('');
-        $schema->add('enabled', __('Активен'), BooleanType::class)->setDefault('Y');
+        $schema->add('enabled', __('Активен'), CheckedEnabledType::class)->setDefault('Y');
+        //@deprecated
         $schema->add('uri', __('Uri'), StringType::class)->setMandatory()->setDefault('');
         $schema->add('secret', __('Secret'), StringType::class)->setMandatory()->setDefault('');
         $schema->add('scopes', __('Scopes'), StringType::class)->setDefault('');
@@ -41,7 +42,8 @@ class ClientGateway extends TableDataGateway
 
     public function firstClientConfiguration(): ClientConfiguration
     {
-        $line = $this->select('uri')
+        $line = $this
+            ->select('id')
             ->select('secret')
             ->select('scopes')
             ->first();
@@ -50,6 +52,6 @@ class ClientGateway extends TableDataGateway
             return new InvalidClientConfiguration();
         }
 
-        return new ClientConfiguration($line['uri'], $line['secret'], $line['scopes']);
+        return new ClientConfiguration($line['id'], $line['secret'], $line['scopes']);
     }
 }

@@ -22,7 +22,7 @@ class WebhookGateway extends TableDataGateway
      */
     public function getSchema()
     {
-        $schema = new Schema();
+        $schema = parent::getSchema();
 
         $schema->add('client_id', __('ID Клиента'), TokenType::class)->setMandatory();
         $schema->add('type', __('Тип'), WebhookTypeType::class)->setMandatory();

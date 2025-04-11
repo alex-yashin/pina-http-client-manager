@@ -3,30 +3,31 @@
 
 namespace PinaHttpClientManager\Model;
 
+use PinaHttpClientManager\SQL\ClientGateway;
+use PinaHttpClientManager\SQL\ClientUriGateway;
+
 class ClientConfiguration
 {
 
-    protected $uri = '';
+    protected $id = '';
     protected $secret = '';
     protected $scopes = [];
 
-    public function __construct(string $uri, string $secret, string $scopes)
+    public function __construct(string $id, string $secret, string $scopes)
     {
-        $this->uri = $uri;
+        $this->id = $id;
         $this->secret = $secret;
         $this->scopes = array_filter(preg_split("/[\s,]+/", $scopes));
     }
 
     public function isConfigured(): bool
     {
-        return !empty($this->uri) && !empty($this->secret);
+        return !empty($this->id) && !empty($this->secret);
     }
 
     public function getTitle(): string
     {
-        $domain = parse_url($this->uri, PHP_URL_HOST);
-        $port = parse_url($this->uri, PHP_URL_PORT);
-        return $domain . (isset($port) ? ':' . $port : '');
+        return ClientGateway::instance()->whereId($this->id)->value('title');
     }
 
     public function hasScope(string $scope): bool
@@ -65,15 +66,22 @@ class ClientConfiguration
 
     public function isValidUrl(string $url)
     {
-        if (empty($url) && !empty($this->uri)) {
+        $approvedUrls = ClientUriGateway::instance()
+            ->whereBy('client_id', $this->id)
+            ->whereBy('enabled', 'Y')
+            ->column('uri');
+
+        if (empty($url) && !empty($approvedUrls)) {
             return false;
         }
 
-        if (stripos($url, $this->uri) !== 0) {
-            return false;
+        foreach ($approvedUrls as $approvedUrl) {
+            if (stripos($url, $approvedUrl) === 0) {
+                return true;
+            }
         }
 
-        return true;
+        return false;
     }
 
     public function isValidBasicToken($clientId, $token)
