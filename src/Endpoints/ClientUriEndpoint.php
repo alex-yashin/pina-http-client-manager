@@ -3,8 +3,8 @@
 namespace PinaHttpClientManager\Endpoints;
 
 use Pina\App;
+use Pina\Data\DataCollection;
 use Pina\Http\DelegatedCollectionEndpoint;
-use Pina\Http\Request;
 
 use PinaHttpClientManager\Collections\ClientUriCollection;
 
@@ -12,12 +12,13 @@ use function Pina\__;
 
 class ClientUriEndpoint extends DelegatedCollectionEndpoint
 {
-    public function __construct(Request $request)
+    protected function getCollectionTitle(): string
     {
-        parent::__construct($request);
-        $this->composer->configure(__('URI'), __('Добавить URL'));
-        $this->collection = App::load(ClientUriCollection::class);
+        return __('URI');
     }
 
-
+    protected function makeDataCollection(): DataCollection
+    {
+        return App::load(ClientUriCollection::class);
+    }
 }

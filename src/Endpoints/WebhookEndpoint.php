@@ -2,6 +2,7 @@
 
 namespace PinaHttpClientManager\Endpoints;
 
+use Pina\Data\DataCollection;
 use PinaHttpClientManager\Collections\WebhookCollection;
 use Pina\App;
 use Pina\Http\DelegatedCollectionEndpoint;
@@ -11,11 +12,13 @@ use function Pina\__;
 
 class WebhookEndpoint extends DelegatedCollectionEndpoint
 {
-    public function __construct(Request $request)
+    protected function getCollectionTitle(): string
     {
-        parent::__construct($request);
-        $this->composer->configure(__('Вебхуки'), __('Добавить вебхук'));
-        $this->collection = App::load(WebhookCollection::class);
+        return __('Вебхуки');
     }
 
+    protected function makeDataCollection(): DataCollection
+    {
+        return App::load(WebhookCollection::class);
+    }
 }

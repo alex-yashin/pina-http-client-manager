@@ -3,8 +3,8 @@
 namespace PinaHttpClientManager\Endpoints;
 
 use Pina\App;
+use Pina\Data\DataCollection;
 use Pina\Http\DelegatedCollectionEndpoint;
-use Pina\Http\Request;
 use PinaHttpClientManager\Collections\ClientCollection;
 
 use function Pina\__;
@@ -14,11 +14,13 @@ use function Pina\__;
  */
 class ClientEndpoint extends DelegatedCollectionEndpoint
 {
-    public function __construct(Request $request)
+    protected function getCollectionTitle(): string
     {
-        parent::__construct($request);
-        $this->composer->configure(__('Клиенты'), __('Добавить Клиента'));
-        $this->collection = App::load(ClientCollection::class);
+        return __('Клиенты');
     }
 
+    protected function makeDataCollection(): DataCollection
+    {
+        return App::load(ClientCollection::class);
+    }
 }
