@@ -16,7 +16,7 @@ class Webhooks
 
         foreach ($subscribers as $clientId) {
             //запускаем в фоновом режиме с помощью доступного сервера очередей
-            Commands\Notify::enqueue($clientId);
+            Commands\Notify::enqueue($message->getPacket($clientId));
         }
     }
 
