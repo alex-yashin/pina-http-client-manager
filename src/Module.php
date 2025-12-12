@@ -22,9 +22,4 @@ class Module implements ModuleInterface
         return 'HTTP Client Manager';
     }
 
-    public function http()
-    {
-        return [];
-    }
-
 }

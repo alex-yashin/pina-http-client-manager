@@ -14,13 +14,16 @@ use function Pina\__;
 
 class WebhookGateway extends TableDataGateway
 {
-    protected static $table = 'webhook';
+    public function getTable(): string
+    {
+        return 'webhook';
+    }
 
     /**
      * @return Schema
      * @throws Exception
      */
-    public function getSchema()
+    public function getSchema(): Schema
     {
         $schema = parent::getSchema();
 

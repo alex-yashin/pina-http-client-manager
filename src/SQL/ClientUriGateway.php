@@ -13,13 +13,16 @@ use function Pina\__;
 
 class ClientUriGateway  extends TableDataGateway
 {
-    protected static $table = 'client_uri';
+    public function getTable(): string
+    {
+        return 'client_uri';
+    }
 
     /**
      * @return Schema
      * @throws Exception
      */
-    public function getSchema()
+    public function getSchema(): Schema
     {
         $schema = parent::getSchema();
 

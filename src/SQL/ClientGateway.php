@@ -16,13 +16,16 @@ use function Pina\__;
 
 class ClientGateway extends TableDataGateway
 {
-    protected static $table = 'client';
+    public function getTable(): string
+    {
+        return 'client';
+    }
 
     /**
      * @return Schema
      * @throws Exception
      */
-    public function getSchema()
+    public function getSchema(): Schema
     {
         $schema = parent::getSchema();
 
